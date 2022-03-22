@@ -36,7 +36,6 @@ analysis_options.yaml
 pubspec.lock
 .metadata
 web/
-README.md
 
 # Web related
 lib/generated_plugin_registrant.dart
