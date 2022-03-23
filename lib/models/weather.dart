@@ -7,7 +7,7 @@ class Weather {
   final double wind;
   final String country;
   final String cityName;
-
+ final DateTime dt;
   Weather({
     required this.wind,
     required this.temp,
