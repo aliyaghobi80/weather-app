@@ -6,20 +6,24 @@ import 'dart:convert';
 import 'package:p_12_api_weather/widgets/custom_text_field.dart';
 
 class CurrentWeatherPage extends StatefulWidget {
-   const CurrentWeatherPage({Key? key}) : super(key: key);
+  const CurrentWeatherPage({Key? key}) : super(key: key);
+
   @override
   _CurrentWeatherPageState createState() => _CurrentWeatherPageState();
 }
+
 class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   late Weather _weather;
-  String city='tehran';
+  String city = 'tehran';
   TextEditingController cityController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Temperature'),
+          title: Text('وضع هوا'),
           centerTitle: true,
+          backgroundColor: Colors.transparent,
         ),
         body: Center(
           child: FutureBuilder(
@@ -54,7 +58,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           child: Text('status:  ${_weather.description}')),
       Container(
           margin: const EdgeInsets.all(5.0),
-          child: Text("Feels:${_weather.feelsLike}°C")),
+          child:
+              Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C")),
       Container(
           margin: const EdgeInsets.all(5.0),
           child: Text("Wind:${_weather.wind.toString()}")),
@@ -63,32 +68,38 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           child: Text("Country:  ${_weather.country}")),
       Container(
           margin: const EdgeInsets.all(5.0),
-          child: Text("cityname:  ${_weather.cityName}")),
+          child: Text("cityName:  ${_weather.cityName}")),
       Container(
           margin: const EdgeInsets.all(5.0),
-          child: Text("H:${_weather.high}°C    L:${_weather.low}°C")),
-      CustomTextField(city:cityController, onPressed: () {
-        setState(() {
-          city=cityController.text;
-        });
-      },)
+          child: Text("time:  ${_weather.dt}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text(
+              "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C")),
+      CustomTextField(
+        city: cityController,
+        onPressed: () {
+          setState(() {
+            city = cityController.text;
+          });
+        },
+      )
     ]);
   }
 
   Future getCurrentWeather() async {
-    try{
+    try {
       Weather? weather;
       String apiKey = "f1d09f5ada183cbf37c18ebaac7f3748";
       var url =
-          "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey";
+          "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&lang=fa";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         weather = Weather.fromJson(jsonDecode(response.body));
       }
       return weather;
-    }catch(e){
+    } catch (e) {
       print(e);
     }
-
   }
 }
