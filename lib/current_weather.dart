@@ -21,10 +21,27 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('My Weather App'),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Temperature'),
+          centerTitle: true,
+        ),
+        body: Center(
+          child: FutureBuilder(
+            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+              if (snapshot.hasData) {
+                _weather = snapshot.data;
+                if (_weather == null) {
+                  return Text("Error getting weather");
+                } else {
+                  return weatherBox(_weather);
+                }
+              } else {
+                return CircularProgressIndicator();
+              }
+            },
+            future: getCurrentWeather(),
+          ),
+        ));
   }
   Widget weatherBox(Weather _weather){
     return Column(
