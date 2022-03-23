@@ -17,6 +17,7 @@ class Weather {
     required this.description,
     required this.country,
     required this.cityName,
+    required this.dt,
   });
 
   factory Weather.fromJson(Map<String, dynamic> json) {
@@ -29,6 +30,7 @@ class Weather {
       wind: json['wind']['speed'].toDouble(),
       country: json['sys']['country'],
       cityName: json['name'],
+      dt: DateTime.fromMillisecondsSinceEpoch(json['dt'] * 1000, isUtc: false),
     );
   }
 }
