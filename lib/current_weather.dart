@@ -15,6 +15,9 @@ class CurrentWeatherPage extends StatefulWidget {
 }
 
 class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
+  late Weather _weather;
+  String city='tehran';
+  TextEditingController cityController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
