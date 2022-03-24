@@ -31,98 +31,60 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           elevation: 1,
           shadowColor: Colors.red,
         ),
-        body: Container(
-          height: size.height * 0.9,
-          width: size.width,
-          decoration: BoxDecoration(),
+        body: SingleChildScrollView(
           child: Container(
-            decoration: BoxDecoration(color: Colors.red),
-            child: Column(
-              children: [
-                FutureBuilder(
-                  builder:
-                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-                    if (snapshot.hasData) {
-                      _weather = snapshot.data;
-                      if (_weather == null) {
-                        return Text("Error getting weather");
+            height: size.height * 0.9,
+            width: size.width,
+            decoration: BoxDecoration(),
+            child: Container(
+              decoration: BoxDecoration(color: Colors.purple.shade400),
+              child: Column(
+                children: [
+                  FutureBuilder(
+                    builder:
+                        (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                      if (snapshot.hasData) {
+                        _weather = snapshot.data;
+                        if (_weather == null) {
+                          return Text("Error getting weather");
+                        } else {
+                          return weatherBox(_weather);
+                        }
                       } else {
-                        return weatherBox(_weather);
+                        return Container(
+                          width: size.width / 4,
+                          height: size.height * 0.08,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.grey.shade300,
+                          ),
+                          child: Column(
+                            children: const [
+                              CircularProgressIndicator(),
+                              Text('Please Waite'),
+                            ],
+                          ),
+                        );
                       }
-                    } else {
-                      return Container(
-                        width: size.width / 4,
-                        height: size.height * 0.08,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.red,
-                        ),
-                        child: Column(
-                          children: const [
-                            CircularProgressIndicator(),
-                            Text('Please Waite'),
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                  future: getCurrentWeather(),
-                ),
-              ],
+                    },
+                    future: getCurrentWeather(),
+                  ),
+                  CustomTextField(
+                    city: cityController,
+                    onPressed: () {
+                      setState(() {
+                        city = cityController.text;
+                      });
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         ));
   }
 
-  // Widget weatherBox(Weather _weather) {
-  //   return Container(
-  //   child: Column(
-  //     children: [
-  //       Expanded(
-  //         child: Expanded(child:Column(
-  //   children: [
-  //   Container(
-  //   margin: const EdgeInsets.all(10.0),
-  //       child: Text(
-  //         "${_weather.temp.toString().substring(0, 2)}°C",
-  //         textAlign: TextAlign.center,
-  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 55),
-  //       )),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text('status:  ${_weather.description}')),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child:
-  //   Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C")),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text("Wind:${_weather.wind.toString()}")),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text("Country:  ${_weather.country}")),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text("cityName:  ${_weather.cityName}")),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text("date:  ${DateFormat('yyyy/MM/dd').format(_weather.dt)}")),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text("time:  ${DateFormat('hh:mm').format(_weather.dt)}")),
-  //   Container(
-  //   margin: const EdgeInsets.all(5.0),
-  //   child: Text(
-  //   "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C")),
-  //
-  //   ],
-  //   ) ,
-  //       ),
-  //       Expanded(child: Text('dkdk')),
-  //     ],
-  //   ),
-  //   );
-  // }
+
   Widget weatherBox(Weather _weather) {
     Size size = MediaQuery.of(context).size;
     return Container(
