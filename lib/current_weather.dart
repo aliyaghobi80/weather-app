@@ -22,9 +22,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text('وضع هوا'),
@@ -34,12 +32,11 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           shadowColor: Colors.red,
         ),
         body: Container(
-          height: size.height / 2,
+          height: size.height * 0.9,
           width: size.width,
           decoration: BoxDecoration(),
           child: Container(
-            decoration: BoxDecoration(color: Color(0xFFf1f1f1)),
-
+            decoration: BoxDecoration(color: Colors.red),
             child: Column(
               children: [
                 FutureBuilder(
@@ -127,9 +124,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
   //   );
   // }
   Widget weatherBox(Weather _weather) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
+    Size size = MediaQuery.of(context).size;
     return Container(
       child: Column(
         children: [
@@ -143,9 +138,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                   fit: BoxFit.fill,
                 ),
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(100),
-                    bottomRight: Radius.circular(100))
-            ),
+                    bottomLeft: Radius.circular(60),
+                    bottomRight: Radius.circular(60))),
             child: Column(
               children: [
                 Padding(
@@ -194,6 +188,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           ),
           Container(),
           Container(),
+          SizedBox(height: 20,),
           CustomTextField(
             city: cityController,
             onPressed: () {
