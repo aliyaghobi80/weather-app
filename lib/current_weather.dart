@@ -147,7 +147,49 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                     bottomRight: Radius.circular(100))
             ),
             child: Column(
-              children: [],
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text('City:   ${_weather.cityName}',
+                                style: kTextStyleNormal),
+                            Text(
+                              "date:  ${DateFormat('yyyy/MM/dd').format(_weather.dt)}",
+                              style: kTextStyleNormal,
+                            ),
+                            Text(
+                              "time:  ${DateFormat('hh:mm').format(_weather.dt)}",
+                              style: kTextStyleNormal,
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Icon(Icons.location_on),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Image(
+                        image: iconChange(_weather.description),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  '${_weather.temp.toString().substring(0, 2)}ºC',
+                  style: kTextStyleTemp,
+                ),
+              ],
             ),
           ),
           Container(),
