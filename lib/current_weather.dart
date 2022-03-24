@@ -148,16 +148,29 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
               ],
             ),
           ),
-          Container(),
-          Container(),
           SizedBox(height: 20,),
-          CustomTextField(
-            city: cityController,
-            onPressed: () {
-              setState(() {
-                city = cityController.text;
-              });
-            },
+          Container(
+            height: size.height*0.2,
+            width: size.width *0.98,
+            decoration: BoxDecoration(
+                color: Colors.black.withOpacity(0.2),
+                borderRadius: BorderRadius.circular(50)),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                  Text('status:  ${_weather.description}',style: kTextStyleNormal,),
+                  Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C",style: kTextStyleNormal),
+                  Text("Wind:${_weather.wind.toString()}",style: kTextStyleNormal),
+                  Text("Country:  ${_weather.country}",style: kTextStyleNormal),
+                  Text(
+                  "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C",style: kTextStyleNormal),
+
+              ],
+            ),
+          ),
+          Container(),
+          SizedBox(
+            height: 20,
           ),
         ],
       ),
