@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:p_12_api_weather/change_image_icon.dart';
@@ -29,7 +30,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           centerTitle: true,
           backgroundColor: Colors.grey.shade800,
           elevation: 1,
-          shadowColor: Colors.red,
+          shadowColor: Colors.grey.shade700,
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -193,4 +194,3 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
     }
   }
 }
-//data in wather box
