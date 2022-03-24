@@ -21,6 +21,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
         appBar: AppBar(
           title: Text('وضع هوا'),
