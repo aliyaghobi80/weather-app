@@ -1,3 +1,4 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -42,8 +43,8 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
               child: Column(
                 children: [
                   FutureBuilder(
-                    builder:
-                        (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    builder: (BuildContext context,
+                        AsyncSnapshot<dynamic> snapshot) {
                       if (snapshot.hasData) {
                         _weather = snapshot.data;
                         if (_weather == null) {
@@ -53,16 +54,21 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                         }
                       } else {
                         return Container(
-                          width: size.width / 4,
-                          height: size.height * 0.08,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: Colors.grey.shade300,
+                            color: Colors.grey.withOpacity(0.9),
                           ),
                           child: Column(
-                            children: const [
+                            children: [
                               CircularProgressIndicator(),
-                              Text('Please Waite'),
+                              DefaultTextStyle(
+                                style: kTextStyleAnimatedText,
+                                child: AnimatedTextKit(
+                                  animatedTexts: [
+                                    TypewriterAnimatedText('Please Enter Correct City...',speed: Duration(milliseconds: 150),),
+                                  ],
+                                ),
+                              ),
                             ],
                           ),
                         );
@@ -84,7 +90,6 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           ),
         ));
   }
-
 
   Widget weatherBox(Weather _weather) {
     Size size = MediaQuery.of(context).size;
@@ -149,23 +154,30 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
               ],
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Container(
-            height: size.height*0.2,
-            width: size.width *0.98,
+            height: size.height * 0.2,
+            width: size.width * 0.98,
             decoration: BoxDecoration(
                 color: Colors.black.withOpacity(0.2),
                 borderRadius: BorderRadius.circular(50)),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                  Text('status:  ${_weather.description}',style: kTextStyleNormal,),
-                  Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C",style: kTextStyleNormal),
-                  Text("Wind:${_weather.wind.toString()}",style: kTextStyleNormal),
-                  Text("Country:  ${_weather.country}",style: kTextStyleNormal),
-                  Text(
-                  "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C",style: kTextStyleNormal),
-
+                Text(
+                  'status:  ${_weather.description}',
+                  style: kTextStyleNormal,
+                ),
+                Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C",
+                    style: kTextStyleNormal),
+                Text("Wind:${_weather.wind.toString()}",
+                    style: kTextStyleNormal),
+                Text("Country:  ${_weather.country}", style: kTextStyleNormal),
+                Text(
+                    "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C",
+                    style: kTextStyleNormal),
               ],
             ),
           ),
