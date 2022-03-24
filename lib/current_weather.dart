@@ -24,23 +24,46 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         appBar: AppBar(
           title: Text('وضع هوا'),
           centerTitle: true,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.blueGrey,
+          elevation: 0,
         ),
-        body: Center(
-          child: FutureBuilder(
-            builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-              if (snapshot.hasData) {
-                _weather = snapshot.data;
-                if (_weather == null) {
-                  return Text("Error getting weather");
-                } else {
-                  return weatherBox(_weather);
-                }
-              } else {
-                return CircularProgressIndicator();
-              }
-            },
-            future: getCurrentWeather(),
+        body: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(),
+            child: Container(
+              decoration: BoxDecoration(color: Colors.blue),
+              margin: EdgeInsets.all(20),
+              child: Column(
+                children: [
+                  Center(
+                    child: FutureBuilder(
+                      builder: (BuildContext context,
+                          AsyncSnapshot<dynamic> snapshot) {
+                        if (snapshot.hasData) {
+                          _weather = snapshot.data;
+                          if (_weather == null) {
+                            return Text("Error getting weather");
+                          } else {
+                            return weatherBox(_weather);
+                          }
+                        } else {
+                          return CircularProgressIndicator();
+                        }
+                      },
+                      future: getCurrentWeather(),
+                    ),
+                  ),
+                  CustomTextField(
+                    city: cityController,
+                    onPressed: () {
+                      setState(() {
+                        city = cityController.text;
+                      });
+                    },
+                  ),
+                ],
+              ),
+            ),
           ),
         ));
   }
@@ -72,19 +95,14 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           child: Text("cityName:  ${_weather.cityName}")),
       Container(
           margin: const EdgeInsets.all(5.0),
-          child: Text("time:  ${_weather.dt}")),
+          child: Text("date:  ${DateFormat('yyyy/mm/d').format(_weather.dt)}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text("time:  ${DateFormat('hh:mm:ss').format(_weather.dt)}")),
       Container(
           margin: const EdgeInsets.all(5.0),
           child: Text(
               "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C")),
-      CustomTextField(
-        city: cityController,
-        onPressed: () {
-          setState(() {
-            city = cityController.text;
-          });
-        },
-      )
     ]);
   }
 
@@ -93,7 +111,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
       Weather? weather;
       String apiKey = "f1d09f5ada183cbf37c18ebaac7f3748";
       var url =
-          "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&lang=fa";
+          "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$apiKey&lang=fa&units=metric";
       final response = await http.get(Uri.parse(url));
       if (response.statusCode == 200) {
         weather = Weather.fromJson(jsonDecode(response.body));
