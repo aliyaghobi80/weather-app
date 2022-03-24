@@ -37,6 +37,7 @@ dependencies:
   http: ^0.13.4
   dio: ^4.0.4
   intl: ^0.17.0
+  animated_text_kit: ^4.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
