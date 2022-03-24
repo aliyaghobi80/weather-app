@@ -135,7 +135,10 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
             width: size.width,
             decoration: BoxDecoration(
                 color: Colors.blue,
-                
+                image: DecorationImage(
+                  image: backChange(_weather.temp), //double.parse(temp)
+                  fit: BoxFit.fill,
+                ),
                 borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(100),
                     bottomRight: Radius.circular(100))
