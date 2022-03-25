@@ -22,13 +22,19 @@ AssetImage iconChange(String description) {
     return AssetImage('assets/icons/sunny_s_cloudy.png');
   } else if (description == "overcast clouds") {
     return AssetImage('assets/icons/cloudy.png');
+<<<<<<< HEAD
   } else if (description == "light rain") {
     return AssetImage('assets/icons/sunny.png');
+=======
+  } else if (description == "scattered clouds") {
+    return AssetImage('assets/icons/rain_light.png');
+>>>>>>> dffb0b88cdc9c4659336e564261d41d4168e0b0d
   } else if (description == 'sunny') {
     return AssetImage('assets/icons/sunny.png');
   } else {
     return AssetImage('assets/icons/snow_s_cloudy.png');
   }
+<<<<<<< HEAD
 }
 
 Color textColor(double temp) {
@@ -43,4 +49,6 @@ else if (temp >= 5 && temp <= 20) {
 } else {
   return Colors.white;
 }
+=======
+>>>>>>> dffb0b88cdc9c4659336e564261d41d4168e0b0d
 }

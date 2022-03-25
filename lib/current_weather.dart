@@ -33,6 +33,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           elevation: 1,
           shadowColor: Colors.grey.shade700,
         ),
+<<<<<<< HEAD
         body: SingleChildScrollView(
           child: Container(
             height: size.height * 0.9,
@@ -52,6 +53,23 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                         } else {
                           return weatherBox(_weather);
                         }
+=======
+        body: Container(
+          height: size.height * 0.9,
+          width: size.width,
+          decoration: BoxDecoration(),
+          child: Container(
+            decoration: BoxDecoration(color: Colors.red),
+            child: Column(
+              children: [
+                FutureBuilder(
+                  builder:
+                      (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+                    if (snapshot.hasData) {
+                      _weather = snapshot.data;
+                      if (_weather == null) {
+                        return Text("Error getting weather");
+>>>>>>> dffb0b88cdc9c4659336e564261d41d4168e0b0d
                       } else {
                         return Container(
                           margin: EdgeInsets.only(top: 20, bottom: 20),
@@ -118,16 +136,75 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
                           repeatForever: true,
                           stopPauseOnTap: false,
                         ),
+<<<<<<< HEAD
                       )),
                 ],
               ),
+=======
+                      );
+                    }
+                  },
+                  future: getCurrentWeather(),
+                ),
+              ],
+>>>>>>> dffb0b88cdc9c4659336e564261d41d4168e0b0d
             ),
           ),
         ));
   }
 
+  // Widget weatherBox(Weather _weather) {
+  //   return Container(
+  //   child: Column(
+  //     children: [
+  //       Expanded(
+  //         child: Expanded(child:Column(
+  //   children: [
+  //   Container(
+  //   margin: const EdgeInsets.all(10.0),
+  //       child: Text(
+  //         "${_weather.temp.toString().substring(0, 2)}°C",
+  //         textAlign: TextAlign.center,
+  //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 55),
+  //       )),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text('status:  ${_weather.description}')),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child:
+  //   Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C")),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text("Wind:${_weather.wind.toString()}")),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text("Country:  ${_weather.country}")),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text("cityName:  ${_weather.cityName}")),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text("date:  ${DateFormat('yyyy/MM/dd').format(_weather.dt)}")),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text("time:  ${DateFormat('hh:mm').format(_weather.dt)}")),
+  //   Container(
+  //   margin: const EdgeInsets.all(5.0),
+  //   child: Text(
+  //   "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C")),
+  //
+  //   ],
+  //   ) ,
+  //       ),
+  //       Expanded(child: Text('dkdk')),
+  //     ],
+  //   ),
+  //   );
+  // }
   Widget weatherBox(Weather _weather) {
     Size size = MediaQuery.of(context).size;
+<<<<<<< HEAD
     return Column(
       children: [
         Container(
@@ -225,6 +302,82 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
           height: 20,
         ),
       ],
+=======
+    return Container(
+      child: Column(
+        children: [
+          Container(
+            height: size.height / 3,
+            width: size.width,
+            decoration: BoxDecoration(
+                color: Colors.blue,
+                image: DecorationImage(
+                  image: backChange(_weather.temp), //double.parse(temp)
+                  fit: BoxFit.fill,
+                ),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(60),
+                    bottomRight: Radius.circular(60))),
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Row(
+                      children: [
+                        Column(
+                          children: [
+                            Text('City:   ${_weather.cityName}',
+                                style: kTextStyleNormal),
+                            Text(
+                              "date:  ${DateFormat('yyyy/MM/dd').format(_weather.dt)}",
+                              style: kTextStyleNormal,
+                            ),
+                            Text(
+                              "time:  ${DateFormat('hh:mm').format(_weather.dt)}",
+                              style: kTextStyleNormal,
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Icon(Icons.location_on),
+                      ],
+                    ),
+                  ),
+                ),
+                Container(
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10)),
+                      child: Image(
+                        image: iconChange(_weather.description),
+                      ),
+                    ),
+                  ),
+                ),
+                Text(
+                  '${_weather.temp.toString().substring(0, 2)}ºC',
+                  style: kTextStyleTemp,
+                ),
+              ],
+            ),
+          ),
+          Container(),
+          Container(),
+          SizedBox(height: 20,),
+          CustomTextField(
+            city: cityController,
+            onPressed: () {
+              setState(() {
+                city = cityController.text;
+              });
+            },
+          ),
+        ],
+      ),
+>>>>>>> dffb0b88cdc9c4659336e564261d41d4168e0b0d
     );
   }
 
@@ -293,3 +446,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
         });
   }
 }
+<<<<<<< HEAD
+=======
+//data in wather box
+>>>>>>> dffb0b88cdc9c4659336e564261d41d4168e0b0d
