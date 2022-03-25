@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:p_12_api_weather/constant.dart';
+import 'package:intl/intl.dart';
 import 'package:p_12_api_weather/models/weather.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -85,11 +85,42 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
     return Column(
       mainAxisSize: MainAxisSize.max,
       children: [
-        Text('Location',style: kTextStyleNormal,),
-        Padding(padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
-        child:Text('${_weather.temp.toString()}ºC',style: kTextStyleNormal,),
-
-        )
+        // Text('Location',style: kTextStyleNormal,),
+        // Padding(padding: EdgeInsets.only(top: 10.0,bottom: 10.0),
+        // child:Text('${_weather.temp.toString()}ºC',style: kTextStyleNormal,),
+     Container(
+          margin: const EdgeInsets.all(10.0),
+          child: Text(
+            "${_weather.temp.toString().substring(0, 2)}°C",
+            textAlign: TextAlign.center,
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 55),
+          )),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text('status:  ${_weather.description}')),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child:
+              Text("Feels:${_weather.feelsLike.toString().substring(0, 2)}°C")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text("Wind:${_weather.wind.toString()}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text("Country:  ${_weather.country}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text("cityName:  ${_weather.cityName}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text("date:  ${DateFormat('yyyy/MM/dd').format(_weather.dt)}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text("time:  ${DateFormat('hh:mm').format(_weather.dt)}")),
+      Container(
+          margin: const EdgeInsets.all(5.0),
+          child: Text(
+              "H:${_weather.high.toString().substring(0, 2)}°C    L:${_weather.low.toString().substring(0, 2)}°C")),
       ],
     );
   }
