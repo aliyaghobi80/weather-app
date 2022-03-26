@@ -254,6 +254,7 @@ class _CurrentWeatherPageState extends State<CurrentWeatherPage> {
               onPressed: () {
                 setState(() {
                   city = cityController.text;
+                  Navigator.pop(context);
                 });
               },
               city: cityController,
